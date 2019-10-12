@@ -22,6 +22,11 @@ $router->group([
 
     //users Response
     $router->post('/users', 'UsersController@create');
-    $router->get('/users', 'UsersController@index');
+
+    //restricted routes
+    $router->group(['middleware'=>'auth:api'],function () use($router){
+        $router->get('/users', 'UsersController@index');
+    });
+
 
 });
